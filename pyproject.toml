@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "coder-dojo-common-python"
+version = "0.0.0"
+description = "Common packages for coder dojo sessions"
+authors = ["Stedders <3862686+Stedders@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{ include = "coder_dojo_common_python" }]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+
+[tool.poetry.group.games.dependencies]
+pygame = "^2.1.2"
+
+[tool.poetry.group.data.dependencies]
+numpy = "^1.24.1"
+jupyterlab = "^3.5.2"
+pandas = "^1.5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = true
