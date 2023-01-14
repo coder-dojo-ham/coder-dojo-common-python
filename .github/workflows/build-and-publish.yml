@@ -1,0 +1,49 @@
+name: Build and publish
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+permissions:
+  id-token: "write"
+  contents: "write"
+  packages: "write"
+  pull-requests: "read"
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - run: poetry self add "poetry-dynamic-versioning[plugin]"
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+          cache: "poetry"
+
+      - run: poetry --version
+
+      - run: poetry install
+
+      - run: PKG_VERSION=$(poetry version --short) && echo $PKG_VERSION && echo "value=$PKG_VERSION" >> $GITHUB_OUTPUT
+        id: pkg_version
+
+      - run: poetry build
+
+      - run: echo "value=$(ls dist/*.tar.gz | sed 's/.tar.gz//' | xargs basename)" >> $GITHUB_OUTPUT
+        id: dist_folder
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          files: |
+            dist/*.tar.gz
+            dist/*.whl
