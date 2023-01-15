@@ -3,6 +3,12 @@
 Basic packages containing all the Python dependencies for the Coder Dojo Sessions.
 
 ## Installation
+You can install the package from PyPI using the following command.
+
+```shell
+'pip install "coder-dojo-common-python[games,data]"
+```
+
 
 You can install the package from GitHub using the following command.
 
@@ -47,4 +53,9 @@ requests = { version = "^2.28.2", optional = true } # Package added as optional
 [tool.poetry.extras]
 #...existing extras...
 web = ["requesets"] # A new extra 'web'
+```
+
+### Build package
+```shell
+poetry build
 ```
