@@ -41,9 +41,16 @@ jobs:
       - run: echo "value=$(ls dist/*.tar.gz | sed 's/.tar.gz//' | xargs basename)" >> $GITHUB_OUTPUT
         id: dist_folder
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Publish distribution to GitHub
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             dist/*.tar.gz
             dist/*.whl
+
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
