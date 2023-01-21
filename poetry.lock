@@ -2662,4 +2662,4 @@ games = ["pgzero", "pygame"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.11"
-content-hash = "1108036901a5f4e19ba44f17691676ee8223ada48a2bf9e137c3c81f26c49de5"
+content-hash = "b924f3aa045928d41001b4cbf7381261173ed8845508194d506261d8cee0a3c0"
