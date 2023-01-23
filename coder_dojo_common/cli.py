@@ -1,4 +1,5 @@
 import sys
+import zipfile
 from pathlib import Path
 
 import click
@@ -34,20 +35,32 @@ def list():
 @kenney.command()
 @click.argument("ASSET_NAME")
 def install(asset_name):
+    """
+    Download and install kenney.nl asset.
+
+    Will install either the cached archive or latest version from kenney.nl into the assets folder in the current directory.
+    """
     coder_dojo_settings = CoderDojoSettings()
+    asset_path = Path(f"assets/{asset_name}")
+
+    if asset_path.exists():
+        print(Fore.RED + f"'{asset_name}' already installed in '{asset_path.absolute()}'." + Style.RESET_ALL)
+
     assets = KenneyAssets(root_dir=coder_dojo_settings.root_dir)
 
     asset = assets[asset_name]
 
     if not asset:
-        print(Fore.RED + f"Unable to find '{asset_name}', please check the spelling" + Style.RESET_ALL)
+        print(Fore.RED + f"Unable to find '{asset_name}', please check the spelling." + Style.RESET_ALL)
         print(f"You can run '{Path(sys.argv[0]).name} list' to see all assets")
         sys.exit(1)
 
     if not asset.archive:
+        print(Fore.YELLOW + f"Downloading '{asset_name}', please wait" + Style.RESET_ALL)
         assets.download(asset_name)
 
-    asset_path = Path(__file__).parent / f"assets/{asset_name}"
     if not asset_path.exists():
-        # Asset not installed, extract and install
-        pass
+        print(Fore.GREEN + f"Installing '{asset_name}' into {asset_path.absolute()}" + Style.RESET_ALL)
+        asset_path.mkdir(parents=True)
+        with zipfile.ZipFile(asset.archive, "r") as zip_file:
+            zip_file.extractall(asset_path.absolute())
