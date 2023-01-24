@@ -1,4 +1,5 @@
-from pprint import pprint
+from __future__ import annotations
+
 from typing import Dict
 
 import bs4.element
@@ -23,15 +24,20 @@ def get_assets(session: Session, base_url: str) -> Dict[str, str]:
             for div in soup.find_all(id="content")[0].children
             if isinstance(div, bs4.element.Tag)
         ]
-        found_assets = {**found_assets, **{url.split("/")[-1]: {"url": url} for url in asset_urls}}
+        found_assets = {
+            **found_assets,
+            **{url.split("/")[-1]: {"url": url} for url in asset_urls},
+        }
         page_number += 1
     return found_assets
 
 
-def get_download_link(session: Session, asset_url: str) -> str:
+def get_download_link(session: Session, asset_url: str) -> str | None:
     response = session.get(asset_url)
     soup = BeautifulSoup(response.text, "html.parser")
     anchors = soup.find_all("a")
     for anchor in anchors:
         if ".zip" in anchor["href"]:
             return anchor["href"]
+
+    return None
