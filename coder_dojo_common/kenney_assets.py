@@ -14,8 +14,10 @@ def get_assets(session: Session, base_url: str) -> Dict[str, str]:
     page_number = 1
     found_assets = {}
     while True:
+        # Keep iterating until we get a 404 - handles the pagination of pages
         response = session.get(f"{base_url}/page:{page_number}")
         if response.status_code == 404:
+            # If 404 the page doesn't exist, we can break the loop
             break
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
