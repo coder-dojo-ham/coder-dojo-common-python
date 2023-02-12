@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional, Union, Iterator
+from typing import Iterator, Optional, Union
 
 from pydantic import BaseModel
 from requests import Session
