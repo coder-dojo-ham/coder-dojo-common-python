@@ -35,12 +35,15 @@ jobs:
 
       - run: poetry install
 
-      - run: PKG_VERSION=$(poetry version --short) && echo $PKG_VERSION && echo "value=$PKG_VERSION" >> $GITHUB_OUTPUT
+      - run: |
+          PKG_VERSION=$(poetry version --short) && \
+          echo "$PKG_VERSION" && \
+          echo "value=$PKG_VERSION" >> "$GITHUB_OUTPUT"
         id: pkg_version
 
       - run: poetry build
-
-      - run: echo "value=$(ls dist/*.tar.gz | sed 's/.tar.gz//' | xargs basename)" >> $GITHUB_OUTPUT
+        # shellcheck disable=SC2012
+      - run: echo "value=$(ls dist/*.tar.gz | sed 's/.tar.gz//' | xargs basename)" >> "$GITHUB_OUTPUT"
         id: dist_folder
 
       - name: Publish distribution to GitHub
