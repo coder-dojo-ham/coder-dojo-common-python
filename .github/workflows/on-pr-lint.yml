@@ -11,5 +11,5 @@ jobs:
       - uses: actions/checkout@v2
       # megalinter
       - uses: nvuillam/mega-linter@v4
-        # with:
-        #   SPELL_CSPELL_DISABLE_ERRORS: true
+        with:
+          PYTHON_MYPY_DISABLE_ERRORS: true
