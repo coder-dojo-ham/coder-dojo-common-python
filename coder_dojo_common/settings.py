@@ -9,7 +9,7 @@ class CoderDojoSettings(BaseSettings):
     # Configuration
     class Config:
         """
-        Set env prefix, root values can be overriden from environment variables prefixed with CODER_DOJO_
+        Set env prefix, root values can be overridden from environment variables prefixed with CODER_DOJO_
 
         e.g.
             CODER_DOJO_ROOT_DIR=/tmp

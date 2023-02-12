@@ -1,3 +1,4 @@
+# cspell: ignore marvinpinto, pypa
 name: Build and publish
 
 on:
