@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": ["en-gb", "companies", "softwareTerms", "misc", "python", "bash", "filetypes"],
+    "words": [
+        "Kenney",
+        "commandline",
+        "pyproject",
+        "pydantic",
+        "pipx"
+    ],
+    "ignorePaths": [
+        ".gitignore"
+    ]
+}

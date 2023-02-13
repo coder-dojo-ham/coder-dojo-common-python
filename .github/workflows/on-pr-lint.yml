@@ -1,0 +1,16 @@
+---
+# cspell: ignore nvuillam
+
+name: Lint on Pull Request
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: nvuillam/mega-linter@v6
+        with:
+          PYTHON_MYPY_DISABLE_ERRORS: true

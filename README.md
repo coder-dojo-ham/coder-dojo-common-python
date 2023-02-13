@@ -76,7 +76,7 @@ requests = { version = "^2.28.2", optional = true } # Package added as optional
 
 [tool.poetry.extras]
 #...existing extras...
-web = ["requesets"] # A new extra 'web'
+web = ["requests"] # A new extra 'web'
 ```
 
 ### Build package
