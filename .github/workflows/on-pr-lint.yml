@@ -1,14 +1,10 @@
-name: Install package
-
+---
+name: Lint on Pull Request
 on:
-  push:
-    branches:
-      - '*'
-      - '!main'
+  pull_request:
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,7 +17,7 @@ jobs:
     #        - "3.11"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Install Poetry
         run: pipx install poetry
@@ -37,5 +33,6 @@ jobs:
 
       - run: poetry install
 
-      - run: poetry version
-
+      # TODO: lint changed files and their deps only
+      - name: Run Lint
+        run: poetry run pre-commit run --all-files

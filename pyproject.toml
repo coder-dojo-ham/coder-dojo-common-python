@@ -26,6 +26,9 @@ yfinance = {version = "^0.2.4", optional = true}
 data = ["jupyterlab", "matplotlib", "numpy", "pandas", "plotly", "yfinance"]
 games = ["pgzero", "pygame"]
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.0.4"
+
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
